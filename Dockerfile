@@ -1,7 +1,7 @@
 FROM webdevops/php-nginx:7.4-alpine
 
 ARG PSR_VERSION=0.7.0
-ARG PHALCON_VERSION=4.0.2
+ARG PHALCON_VERSION=4.1.2
 ARG PHALCON_EXT_PATH=php7/64bits
 
 RUN set -xe && \
