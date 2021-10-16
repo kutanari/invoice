@@ -25,12 +25,6 @@ class Customers extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $country;
-
-    /**
-     *
-     * @var string
-     */
     public $country_code;
 
     /**

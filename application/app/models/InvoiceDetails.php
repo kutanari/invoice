@@ -40,7 +40,7 @@ class InvoiceDetails extends \Phalcon\Mvc\Model
     {
         $this->setSchema("invoice");
         $this->setSource("invoice_details");
-        $this->belongsTo('invoice_id', '\Invoices', 'invoice_id', ['alias' => 'Invoices']);
+        $this->belongsTo('invoice_id', '\Invoices', 'id', ['alias' => 'Invoices']);
         $this->belongsTo('product_id', '\Products', 'id', ['alias' => 'Products']);
     }
 

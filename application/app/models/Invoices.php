@@ -7,7 +7,13 @@ class Invoices extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $invoice_id;
+    public $id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $invoice_code;
 
     /**
      *
@@ -58,7 +64,7 @@ class Invoices extends \Phalcon\Mvc\Model
     {
         $this->setSchema("invoice");
         $this->setSource("invoices");
-        $this->hasMany('invoice_id', 'InvoiceDetails', 'invoice_id', ['alias' => 'InvoiceDetails']);
+        $this->hasMany('id', 'InvoiceDetails', 'invoice_id', ['alias' => 'InvoiceDetails']);
         $this->belongsTo('for', '\Customers', 'id', ['alias' => 'Customers']);
         $this->belongsTo('from', '\Customers', 'id', ['alias' => 'Customers']);
     }
