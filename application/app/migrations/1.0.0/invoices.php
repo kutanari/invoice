@@ -101,6 +101,16 @@ class InvoicesMigration_100 extends Migration
                         'after' => 'is_paid'
                     ]
                 ),
+                new Column(
+                    'soft_deleted',
+                    [
+                        'type' => Column::TYPE_INTEGER,
+                        'default' => 0,
+                        'notNull' => true,
+                        'size' => 1,
+                        'after' => 'notes'
+                    ]
+                ),
             ],
             'indexes' => [
                 new Index('PRIMARY', ['id'], 'PRIMARY'),

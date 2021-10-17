@@ -58,6 +58,12 @@ class Invoices extends \Phalcon\Mvc\Model
     public $notes;
 
     /**
+     *
+     * @var integer
+     */
+    public $soft_deleted;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -65,8 +71,8 @@ class Invoices extends \Phalcon\Mvc\Model
         $this->setSchema("invoice");
         $this->setSource("invoices");
         $this->hasMany('id', 'InvoiceDetails', 'invoice_id', ['alias' => 'InvoiceDetails']);
-        $this->belongsTo('for', '\Customers', 'id', ['alias' => 'Customers']);
-        $this->belongsTo('from', '\Customers', 'id', ['alias' => 'Customers']);
+        $this->belongsTo('for', '\Customers', 'id', ['alias' => 'CustomerFor']);
+        $this->belongsTo('from', '\Customers', 'id', ['alias' => 'CustomerFrom']);
     }
 
     /**
@@ -89,6 +95,27 @@ class Invoices extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Get total price for an invoice
+     *
+     * @param Invoices $invoice
+     * @return float
+     */
+    public static function getTotalPrice(Invoices $invoice): float
+    {
+        $total_price = 0;
+        foreach ($invoice->InvoiceDetails as $invoice_detail) {
+            $quantity = $invoice_detail->quantity;
+            $item_price = $invoice_detail->products->unit_price;
+
+            $price = $quantity * $item_price;
+
+            $total_price += $price;
+        }
+
+        return $total_price;
     }
 
 }
