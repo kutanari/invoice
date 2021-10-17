@@ -7,9 +7,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class InvoiceDetailsMigration_100
+ * Class InvoiceDetailsMigration_101
  */
-class InvoiceDetailsMigration_100 extends Migration
+class InvoiceDetailsMigration_102 extends Migration
 {
     /**
      * Define the table structure
@@ -53,9 +53,8 @@ class InvoiceDetailsMigration_100 extends Migration
                     'quantity',
                     [
                         'type' => Column::TYPE_INTEGER,
-                        'unsigned' => true,
                         'notNull' => true,
-                        'size' => 10,
+                        'size' => 1,
                         'after' => 'product_id'
                     ]
                 ),
@@ -70,8 +69,8 @@ class InvoiceDetailsMigration_100 extends Migration
             ],
             'indexes' => [
                 new Index('PRIMARY', ['id'], 'PRIMARY'),
-                new Index('fk_invoice_details_invoices_1', ['invoice_id'], ''),
                 new Index('fk_invoice_details_products_1', ['product_id'], ''),
+                new Index('fk_invoice_details_invoices_1', ['invoice_id'], ''),
             ],
             'references' => [
                 new Reference(
@@ -80,7 +79,7 @@ class InvoiceDetailsMigration_100 extends Migration
                         'referencedSchema' => 'invoice',
                         'referencedTable' => 'invoices',
                         'columns' => ['invoice_id'],
-                        'referencedColumns' => ['invoice_id'],
+                        'referencedColumns' => ['id'],
                         'onUpdate' => 'NO ACTION',
                         'onDelete' => 'NO ACTION'
                     ]
@@ -113,6 +112,86 @@ class InvoiceDetailsMigration_100 extends Migration
      */
     public function up(): void
     {
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 1,
+                'product_id' => 1,
+                'quantity' => 3,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 1,
+                'product_id' => 4,
+                'quantity' => 1,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 1,
+                'product_id' => 5,
+                'quantity' => 1,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 1,
+                'product_id' => 6,
+                'quantity' => 2,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 2,
+                'product_id' => 2,
+                'quantity' => 2,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 2,
+                'product_id' => 6,
+                'quantity' => 1,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 2,
+                'product_id' => 3,
+                'quantity' => 1,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 3,
+                'product_id' => 1,
+                'quantity' => 1,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoice_details",
+            [
+                'invoice_id' => 3,
+                'product_id' => 4,
+                'quantity' => 1,
+            ]
+        );
     }
 
     /**

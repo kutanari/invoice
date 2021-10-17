@@ -7,7 +7,7 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class ProductTypesMigration_100
+ * Class ProductTypesMigration_101
  */
 class ProductTypesMigration_100 extends Migration
 {
@@ -68,6 +68,19 @@ class ProductTypesMigration_100 extends Migration
      */
     public function up(): void
     {
+        self::$connection->insertAsDict(
+            "product_types",
+            [
+                'name' => 'Service',
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "product_types",
+            [
+                'name' => 'Training',
+            ]
+        );
     }
 
     /**

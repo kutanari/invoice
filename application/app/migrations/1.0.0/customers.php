@@ -7,7 +7,7 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class CustomersMigration_100
+ * Class CustomersMigration_101
  */
 class CustomersMigration_100 extends Migration
 {
@@ -49,21 +49,12 @@ class CustomersMigration_100 extends Migration
                     ]
                 ),
                 new Column(
-                    'country',
-                    [
-                        'type' => Column::TYPE_VARCHAR,
-                        'notNull' => true,
-                        'size' => 128,
-                        'after' => 'address'
-                    ]
-                ),
-                new Column(
                     'country_code',
                     [
                         'type' => Column::TYPE_VARCHAR,
                         'notNull' => true,
                         'size' => 8,
-                        'after' => 'country'
+                        'after' => 'address'
                     ]
                 ),
                 new Column(
@@ -112,6 +103,71 @@ class CustomersMigration_100 extends Migration
      */
     public function up(): void
     {
+        self::$connection->insertAsDict(
+            "customers",
+            [    
+                'name' => 'Cecilia Chapman',
+                'address' => '711-2880 Nulla St. Mankato',
+                'country_code' => 'us',
+                'city' => 'Mississippi',
+                'postcode' => '96522'
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "customers",
+            [
+                'name' => 'Sutarman',
+                'address' => 'Jl. Sudirman, 1A',
+                'country_code' => 'id',
+                'city' => 'Jakarta',
+                'postcode' => '23433'
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "customers",
+            [
+                'name' => 'Lie Wei',
+                'address' => 'Zhi Chun Lu Han Rong Jia Yuan 1hao Lou 307',
+                'country_code' => 'cn',
+                'city' => 'Beijing',
+                'postcode' => '130638'
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "customers",
+            [    
+                'name' => 'Anna Chapman',
+                'address' => '12 st. Fernandes, New Mexico',
+                'country_code' => 'us',
+                'city' => 'Florida',
+                'postcode' => '96522'
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "customers",
+            [
+                'name' => 'Gunawan',
+                'address' => 'Jl. Gatot Subroto, 22',
+                'country_code' => 'id',
+                'city' => 'Bandung',
+                'postcode' => '23454'
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "customers",
+            [
+                'name' => 'Xinxin',
+                'address' => 'Zhi Jia Yuan Lou 123',
+                'country_code' => 'cn',
+                'city' => 'Wuhan',
+                'postcode' => '234234'
+            ]
+        );
     }
 
     /**

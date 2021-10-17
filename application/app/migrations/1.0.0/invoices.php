@@ -7,7 +7,7 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class InvoicesMigration_100
+ * Class InvoicesMigration_101
  */
 class InvoicesMigration_100 extends Migration
 {
@@ -22,7 +22,7 @@ class InvoicesMigration_100 extends Migration
         $this->morphTable('invoices', [
             'columns' => [
                 new Column(
-                    'invoice_id',
+                    'id',
                     [
                         'type' => Column::TYPE_INTEGER,
                         'notNull' => true,
@@ -32,11 +32,21 @@ class InvoicesMigration_100 extends Migration
                     ]
                 ),
                 new Column(
+                    'invoice_code',
+                    [
+                        'type' => Column::TYPE_INTEGER,
+                        'unsigned' => true,
+                        'notNull' => true,
+                        'size' => 4,
+                        'after' => 'id'
+                    ]
+                ),
+                new Column(
                     'subject',
                     [
                         'type' => Column::TYPE_TEXT,
                         'notNull' => false,
-                        'after' => 'invoice_id'
+                        'after' => 'invoice_code'
                     ]
                 ),
                 new Column(
@@ -93,7 +103,7 @@ class InvoicesMigration_100 extends Migration
                 ),
             ],
             'indexes' => [
-                new Index('PRIMARY', ['invoice_id'], 'PRIMARY'),
+                new Index('PRIMARY', ['id'], 'PRIMARY'),
                 new Index('fk_invoices_customers_1', ['for'], ''),
                 new Index('fk_invoices_customers_2', ['from'], ''),
             ],
@@ -137,6 +147,41 @@ class InvoicesMigration_100 extends Migration
      */
     public function up(): void
     {
+        self::$connection->insertAsDict(
+            "invoices",
+            [
+                'invoice_code' => 1,
+                'subject' => 'Building Mobile Application',
+                'issue_date' => '2021-01-01',
+                'due_date' => '2021-01-12',
+                'for' => 1,
+                'from' => 2
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoices",
+            [
+                'invoice_code' => 2,
+                'subject' => 'Website Development',
+                'issue_date' => '2021-02-01',
+                'due_date' => '2021-02-12',
+                'for' => 3,
+                'from' => 4
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "invoices",
+            [
+                'invoice_code' => 2,
+                'subject' => 'Android Application Enhancement',
+                'issue_date' => '2021-02-02',
+                'due_date' => '2021-02-20',
+                'for' => 5,
+                'from' => 6
+            ]
+        );
     }
 
     /**

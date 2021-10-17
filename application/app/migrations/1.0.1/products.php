@@ -101,6 +101,59 @@ class ProductsMigration_101 extends Migration
      */
     public function up(): void
     {
+        self::$connection->insertAsDict(
+            "products",
+            [
+                'name' => 'Mobile App Demo Day',
+                'product_type_id' => 2,
+                'unit_price' => 1000000,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "products",
+            [
+                'name' => 'Web App Demo Day',
+                'product_type_id' => 2,
+                'unit_price' => 1200000,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "products",
+            [
+                'name' => 'Web App Development',
+                'product_type_id' => 1,
+                'unit_price' => 12000000,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "products",
+            [
+                'name' => 'Mobile App Development Android',
+                'product_type_id' => 1,
+                'unit_price' => 9500000,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "products",
+            [
+                'name' => 'Mobile App Development iOS',
+                'product_type_id' => 1,
+                'unit_price' => 11000000,
+            ]
+        );
+
+        self::$connection->insertAsDict(
+            "products",
+            [
+                'name' => 'Training Day',
+                'product_type_id' => 2,
+                'unit_price' => 10000000,
+            ]
+        );
     }
 
     /**
