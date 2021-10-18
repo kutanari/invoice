@@ -1,7 +1,133 @@
-<div class="page-header">
-    <h1>Congratulations!</h1>
+<div class="page-wrapper">
+    <div class="container-xl">
+        <!-- Page title -->
+        <div class="page-header text-white d-print-none">
+            <div class="row align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                    <div class="page-pretitle">
+                        Home
+                    </div>
+                    <h2 class="page-title">
+                        Invoices
+                    </h2>
+                </div>
+                <!-- Page title actions -->
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <a href="/invoice/new" class="btn btn-primary d-none d-sm-inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            Create new invoice
+                        </a>
+                        <a href="/invoice/new" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal" data-bs-target="#modal-report" aria-label="Create new report">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Invoices</h3>
+                        </div>
+                        <div class="container">
+                            <?php ($this->flash->output()); ?>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table card-table table-striped table-vcenter text-nowrap datatable" id="datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="w-1">No.
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <polyline points="6 15 12 9 18 15" />
+                                                </svg>
+                                            </th>
+                                            <th>Invoice Subject</th>
+                                            <th>Client</th>
+                                            <th>Issue Date</th>
+                                            <th>Status</th>
+                                            <th>Price</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($invoices as $invoice) { ?>
+                                            <tr>
+                                                <td><span class="text-muted"><?php echo str_pad((string)$invoice->invoice_code, 4, "0", STR_PAD_LEFT); ?></span></td>
+                                                <td><a href="/invoice/view/<?php echo $invoice->id; ?>" class="text-reset" tabindex="-1"><?php echo $invoice->subject; ?></a></td>
+                                                <td>
+                                                    <span class="flag flag-country-<?php echo $invoice->customerFor->country_code; ?>"></span>
+                                                    <?php echo $invoice->customerFor->name; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $invoice->issue_date; ?>
+                                                </td>
+                                                <td>
+                                                    <?php if ($invoice->is_paid === 'Y') { ?>
+                                                        <span class="badge bg-success me-1"></span> Paid
+                                                    <?php } else { ?>
+                                                        <span class="badge bg-warning me-1"></span> Pending
+                                                    <?php } ?>
+                                                </td>
+                                                <td><?php echo Number::formatRupiah($invoice::getTotalPrice($invoice)); ?></td>
+                                                <td class="text-end">
+                                                    <span class="dropdown">
+                                                        <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="/invoice/view/<?php echo $invoice->id; ?>">
+                                                                View
+                                                            </a>
+                                                            <a class="dropdown-item" href="/invoice/edit/<?php echo $invoice->id; ?>">
+                                                                Edit
+                                                            </a>
+                                                            <a class="dropdown-item" href="/invoice/delete/<?php echo $invoice->id; ?>">
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<p>You're now flying with Phalcon. Great things are about to happen!</p>
+<?php
 
-<p>This page is located at <code>views/index/index.phtml</code></p>
+$js = '
+    $(document).ready( function () {
+        $("#datatable").DataTable();
+    } );
+';
+$css = '
+.table>:not(caption)>*>* {
+    border-bottom-width: 0;
+}
+';
+$this
+    ->assets
+    ->addInlineCss($css)
+    ->addInlineJs($js);
+?>

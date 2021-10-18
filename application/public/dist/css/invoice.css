@@ -1,0 +1,11 @@
+.invoice-label {
+    color: #bdbdbd;
+}
+.invoice-value {
+    border-left: 1px solid #bdbdbd;
+}
+
+#print-area {
+    padding: 10px;
+    margin: 10px;
+}

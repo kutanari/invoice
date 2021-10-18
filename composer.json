@@ -13,6 +13,7 @@
         }
     ],
     "require-dev": {
-        "phalcon/devtools": "^4.2"
+        "phalcon/devtools": "^4.2",
+        "phalcon/ide-stubs": "^4.1"
     }
 }
