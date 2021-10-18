@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class InvoiceController extends ControllerBase
+class InvoiceController extends \Phalcon\Mvc\Controller
 {
 
     public function indexAction()
