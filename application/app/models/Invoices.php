@@ -118,4 +118,17 @@ class Invoices extends \Phalcon\Mvc\Model
         return $total_price;
     }
 
+    /**
+     * get total price plus tax
+     *
+     * @param Invoices $invoice
+     * @param float $tax
+     * @return float
+     */
+    public static function getTotalPriceWithTax(Invoices $invoice, float $tax): float
+    {
+        $total_price = self::getTotalPrice($invoice);
+        return $total_price + $total_price * (100 / $tax);
+    }
+
 }

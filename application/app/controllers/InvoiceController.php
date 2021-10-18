@@ -28,6 +28,8 @@ class InvoiceController extends ControllerBase
 
             return;
         }
+
+        $this->view->invoice = $invoice;
     }
 
     /**
